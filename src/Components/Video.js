@@ -1,21 +1,22 @@
 import React from "react";
-import "./Story.css";
-// import AccountCircleIcon from "@material-ui/icons/AccountCircle";
+import "./Video.css";
+import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 
-function Story({ data }) {
-  const image = "http://www.loremimages.com?size=350x150";
+function Video({ data }) {
   return (
     <div className="__story">
       <div className="__storyheader">
-        <img src={data.profilePhotoURL} alt="dp" />
-        {/* <AccountCircleIcon style={{ fontSize: "40px", marginRight: "10px" }} /> */}
+        {/* <img src={data.profilePhotoURL} alt="dp" /> */}
+        <AccountCircleIcon style={{ fontSize: "40px", marginRight: "10px" }} />
         <div className="__inner">
           <h5>{data.username}</h5>
-          <p>{data.id}</p>
+          <p>{data.time}</p>
         </div>
       </div>
-      <div className="__storybody">
-        <img src={data.image} alt="image" />
+      <div className="__vidBody">
+        <video src={data.url} width="100%" height="400" controls>
+          {/* source  */}
+        </video>
       </div>
       <div className="__caption">
         <p>{data.caption}</p>
@@ -28,4 +29,4 @@ function Story({ data }) {
   );
 }
 
-export default Story;
+export default Video;

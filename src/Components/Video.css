@@ -1,0 +1,6 @@
+.__vidBody{
+    padding: 5px 0
+}
+.__vidBody > video{
+    outline: none;
+}
