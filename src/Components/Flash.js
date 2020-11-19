@@ -6,6 +6,8 @@ import { UserContext } from "../Context";
 import * as animationData from "./flash.json";
 import { css } from "@emotion/core";
 import HashLoader from "react-spinners/HashLoader";
+import {StoryContext} from '../Context/StoryContent'
+import {db} from '../firebase'
 
 function Flash() {
   const [pause] = useState(false);
@@ -25,6 +27,17 @@ function Flash() {
     },
   };
   const [user, setUser] = useContext(UserContext);
+  const [data, setData] = useContext(StoryContext);
+  useEffect(() => {
+    setTimeout(async () => {
+      const story = await db.ref('story');
+      story.on('value', (snapshot) => {
+        setData({...snapshot.val()});
+      });
+      console.log('Home Screen: ', data);
+    }, 50);
+  }, []);
+
   // useEffect(() => {
   //   const unsubscribe = auth.onAuthStateChanged((authUser) => {
   //     if (authUser) {

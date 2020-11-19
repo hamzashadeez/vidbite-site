@@ -1,0 +1,55 @@
+.__storyheader{
+    display: flex;
+    padding: 5px
+}
+.__storyheader > img{
+    object-fit: contain;
+    width: 40px;
+    border-radius: 20px;
+    margin-right: 10px;
+}
+.__inner > h5{
+    font-size: 1.2rem;
+    color: #222
+}
+.__inner > p{
+    font-size: 0.9rem;
+    color: #444
+}
+.__caption{
+    padding: 10px;
+    color: #222222;
+    font-weight: 700;
+}
+
+.__story{
+    /* border: 1px solid #ddd; */
+    margin: auto;
+    background-color: #fff;
+    /* box-shadow: 1px 1px 1px 1px rgba(41,72,76,0.77); */
+    box-shadow: 1px 1px 1px 1px rgba(88, 91, 92, 0.77);
+    margin-bottom: 40px;
+    max-width: 800px;
+}
+
+.__storybody > img{
+    object-fit: contain;
+    width: 100%;
+}
+.__storyfooter{
+    width: 100%;
+    padding: 10px;
+}
+.__storyfooter > button{
+    background-color: transparent;
+    border: none;
+    font-size: .9rem;
+    color: #222;
+    font-weight: 500;
+    margin-right: 20px;
+    outline: none;
+    cursor: pointer;
+}
+.__storyfooter > button:hover{
+    opacity: 0.8;
+}

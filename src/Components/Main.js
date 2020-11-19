@@ -3,35 +3,39 @@ import { makeStyles } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
 import List from "@material-ui/core/List";
 import Typography from "@material-ui/core/Typography";
 import Divider from "@material-ui/core/Divider";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
-import InboxIcon from "@material-ui/icons/MoveToInbox";
-import DashboardIcon from '@material-ui/icons/Dashboard';
-import VideoLibraryIcon from '@material-ui/icons/VideoLibrary';
-import LocalLibraryIcon from '@material-ui/icons/LocalLibrary';
-import QueuePlayNextIcon from '@material-ui/icons/QueuePlayNext';
-import NotificationsActiveIcon from '@material-ui/icons/NotificationsActive';
-import PostAddIcon from '@material-ui/icons/PostAdd';
-import ExitToAppIcon from '@material-ui/icons/ExitToApp';
-import AccountCircleIcon from '@material-ui/icons/AccountCircle';
-import MailIcon from "@material-ui/icons/Mail";
-import { Button } from "@material-ui/core";
+import DashboardIcon from "@material-ui/icons/Dashboard";
+import VideoLibraryIcon from "@material-ui/icons/VideoLibrary";
+import LocalLibraryIcon from "@material-ui/icons/LocalLibrary";
+import QueuePlayNextIcon from "@material-ui/icons/QueuePlayNext";
+import NotificationsActiveIcon from "@material-ui/icons/NotificationsActive";
+import PostAddIcon from "@material-ui/icons/PostAdd";
+import ExitToAppIcon from "@material-ui/icons/ExitToApp";
+import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import {
   BrowserRouter as Router,
   Switch,
   Route,
+  withRouter,
   Link,
   useHistory,
   useRouteMatch,
   useParams,
 } from "react-router-dom";
+import './Main.css'
 import Dashboard from "../Screens/Dashboard";
 import Stories from "../Screens/Stories";
+import AddStory from "../Screens/AddStory";
+import AddVideo from "../Screens/AddVideo";
+import Notification from "../Screens/Notification";
+import Logout from "../Screens/Logout";
+import Videos from "../Screens/Videos";
+
 
 const drawerWidth = 240;
 
@@ -64,103 +68,117 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.background.default,
     padding: theme.spacing(0),
   },
-  list:{
-    color: '#fff'
+  list: {
+    color: "#fff",
   },
   profile: {
     display: "flex",
-    alignItems: 'center',
+    alignItems: "center",
     justifyContent: "center",
     flexDirection: "column",
-    color: '#ddd',
-    marginTop: "10px"
-  }
+    color: "#ddd",
+    marginTop: "10px",
+  },
 }));
 
 export default function Main() {
   const classes = useStyles();
-  let history = useHistory()
-/*
-*/
+  let history = useHistory();
+  /*
+   */
   return (
-    <div className={classes.root}>
-      
-      <Drawer
-        className={classes.drawer}
-        variant="permanent"
-        classes={{
-          paper: classes.drawerPaper,
-        }}
-        anchor="left"
-      >
-        <div className={classes.profile}>
-          <AccountCircleIcon style={{ fontSize: 100 }} />
-          <h4>Admin</h4>
+    <Router>
+      <Switch>
+        <div className={classes.root}>
+          <Drawer
+            className={classes.drawer}
+            variant="permanent"
+            classes={{
+              paper: classes.drawerPaper,
+            }}
+            anchor="left"
+          >
+            <div className={classes.profile}>
+              <AccountCircleIcon style={{ fontSize: 100 }} />
+              <h4>Admin</h4>
+            </div>
+            <Divider />
+            <List className={classes.list}>
+              <Link style={{color: '#fff', textDecoration: "none"}} to="./">
+                <ListItem button>
+                  <ListItemIcon className={classes.list}>
+                    <DashboardIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="DashBoard" />
+                </ListItem>
+              </Link>
+              <Link style={{color: '#fff', textDecoration: "none"}} to="./stories">
+                <ListItem button>
+                  <ListItemIcon className={classes.list}>
+                    <LocalLibraryIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="Stories" />
+                </ListItem>
+              </Link>
+              <Link style={{color: '#fff', textDecoration: "none"}} to="./videos">
+              <ListItem button>
+                <ListItemIcon className={classes.list}>
+                  <VideoLibraryIcon />
+                </ListItemIcon>
+                <ListItemText primary="Videos" />
+              </ListItem></Link>
+              <Link style={{color: '#fff', textDecoration: "none"}} to="./notification">
+              <ListItem button>
+                <ListItemIcon className={classes.list}>
+                  <NotificationsActiveIcon />
+                </ListItemIcon>
+                <ListItemText primary="Send Notification" />
+              </ListItem></Link>
+            </List>
+
+            <Divider />
+            <List className={classes.list}>
+            <Link style={{color: '#fff', textDecoration: "none"}} to="./addvideo">
+              <ListItem button>
+                <ListItemIcon className={classes.list}>
+                  <PostAddIcon />
+                </ListItemIcon>
+                <ListItemText
+                  primary="Add a Story"
+                />
+              </ListItem></Link>
+              <Link style={{color: '#fff', textDecoration: "none"}} to="./addstory">
+              <ListItem button>
+                <ListItemIcon className={classes.list}>
+                  <QueuePlayNextIcon />
+                </ListItemIcon>
+                <ListItemText primary="Add a Video" />
+              </ListItem></Link>
+              <Link style={{color: '#fff', textDecoration: "none"}} to="./logout">
+              <ListItem button>
+                <ListItemIcon className={classes.list}>
+                  <ExitToAppIcon />
+                </ListItemIcon>
+                <ListItemText primary="Log Out" />
+              </ListItem></Link>
+            </List>
+          </Drawer>
+          <main className={classes.content}>
+            {/* <div className={classes.toolbar} /> */}
+            {/* <Router> */}
+            <Switch>
+              <Route path="/stories" component={withRouter(Stories)} />
+              <Route path="/videos" component={withRouter(Videos)} />
+              <Route path="/notification" component={withRouter(Notification)} />
+              <Route path="/addvideo" component={withRouter(AddVideo)} />
+              <Route path="/addstory" component={withRouter(AddStory)} />
+              <Route path="/logout" component={withRouter(Logout)} />
+              <Route exact path="/" component={withRouter(Dashboard)} />
+            </Switch>
+            {/* </Router> */}
+          </main>
         </div>
-        <Divider />
-        <List className={classes.list}>
-          <ListItem button >
-            <ListItemIcon className={classes.list}>
-              <DashboardIcon />
-            </ListItemIcon>
-            <ListItemText primary="DashBoard" />
-          </ListItem>
-          <ListItem button>
-            <ListItemIcon className={classes.list}>
-              <LocalLibraryIcon />
-            </ListItemIcon>
-            <ListItemText primary="Stories" />
-          </ListItem>
-          <ListItem button>
-            <ListItemIcon className={classes.list}>
-              <VideoLibraryIcon />
-            </ListItemIcon>
-            <ListItemText primary="Videos" />
-          </ListItem>
-          <ListItem button>
-            <ListItemIcon className={classes.list}>
-              <NotificationsActiveIcon />
-            </ListItemIcon>
-            <ListItemText primary="Send Notification" />
-          </ListItem>
-        </List>
-
-        <Divider />
-        <List className={classes.list}>
-          <ListItem button >
-            <ListItemIcon className={classes.list}>
-              <PostAddIcon />
-            </ListItemIcon>
-            <ListItemText onClick={()=> history.push('/stories')} primary="Add a Story" />
-          </ListItem>
-          <ListItem button>
-            <ListItemIcon className={classes.list}>
-              <QueuePlayNextIcon />
-            </ListItemIcon>
-            <ListItemText primary="Add a Video" />
-          </ListItem>
-          <ListItem button>
-            <ListItemIcon className={classes.list}>
-              <ExitToAppIcon />
-            </ListItemIcon>
-            <ListItemText primary="Log Out" />
-          </ListItem>
-        </List>
-      </Drawer>
-      <main className={classes.content}>
-        {/* <div className={classes.toolbar} /> */}
-        <Router>
-          <Switch>
-            <Route path="/stories">
-              <Stories />
-            </Route>
-
-            <Route path="/">
-              <Dashboard />
-            </Route>
-          </Switch>
-        </Router>
-      </main>
-    </div>
+      </Switch>
+    </Router>
   );
 }
